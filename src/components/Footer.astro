@@ -1,0 +1,33 @@
+---
+// src/components/Footer.astro
+---
+<footer>
+    <p>Follow me:</p>
+    <ul>
+      <li><a href="https://twitter.com/yourhandle" target="_blank">Twitter</a></li>
+      <li><a href="https://github.com/yourhandle" target="_blank">GitHub</a></li>
+      <li><a href="https://linkedin.com/in/yourhandle" target="_blank">LinkedIn</a></li>
+    </ul>
+    <p>&copy; {new Date().getFullYear()} Patrik Holmes. All rights reserved.</p>
+  </footer>
+  
+  <style>
+    footer {
+      background: #f1f1f1;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+    footer ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    footer a {
+      color: #333;
+      text-decoration: none;
+    }
+  </style>
+  
