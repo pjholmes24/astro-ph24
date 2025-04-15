@@ -17,9 +17,8 @@ const { title, pubDate, description } = Astro.props;
     <Navigation />
     <article>
       <h1>{title}</h1>
-      <p><em>{new Date(pubDate ?? "").toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</em></p>
+      <p><em>{pubDate && new Date(pubDate).toLocaleDateString()}</em></p>
       <slot />
     </article>
     <Footer />
   </body>
-
