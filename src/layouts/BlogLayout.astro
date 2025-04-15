@@ -1,0 +1,39 @@
+---
+import "../styles/global.css";
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
+
+// Props provided by Markdown frontmatter
+const { title, pubDate, description } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{title}</title>
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <Navigation />
+    <article>
+      <h1>{title}</h1>
+      <p><em>{new Date(pubDate).toLocaleDateString()}</em></p>
+      <slot />
+    </article>
+    <Footer />
+  </body>
+
+  <style>
+    article {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 2rem;
+      font-family: system-ui, sans-serif;
+    }
+    h1 {
+      color: #4b0082;
+    }
+  </style>
+</html>
