@@ -2,7 +2,6 @@
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
 
-// Props coming from the Markdown file:
 const { title, pubDate, description } = Astro.props;
 ---
 
@@ -18,23 +17,9 @@ const { title, pubDate, description } = Astro.props;
     <Navigation />
     <article>
       <h1>{title}</h1>
-      <p><em>{pubDate ? new Date(pubDate).toLocaleDateString() : "Unknown date"}</em></p>
+      <p><em>{new Date(pubDate ?? "").toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</em></p>
       <slot />
     </article>
     <Footer />
   </body>
-
-  <style>
-    article {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 2rem;
-      font-family: system-ui, sans-serif;
-    }
-
-    h1 {
-      color: #4b0082;
-    }
-  </style>
-</html>
 
