@@ -2,20 +2,38 @@
 import Layout from "../../layouts/Layout.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 
-// Use correct access to dynamic params
+// Get the dynamic tag from the URL
 const { tag } = Astro.params;
 
-// Provide a proper type for posts
-const posts = (await getCollection("blog")) as CollectionEntry<"blog">[];
+// Get all blog posts
+const posts = await getCollection("blog") as CollectionEntry<"blog">[];
 
-// Filter posts by tag
-const filteredPosts = posts.filter(post => post.data.tags.includes(tag));
+// Filter posts that include the tag
+const filteredPosts = posts.filter((post: CollectionEntry<"blog">) =>
+  post.data.tags.includes(tag)
+);
+
+// Export static paths for each tag
+export async function getStaticPaths() {
+  const allPosts = await getCollection("blog");
+  const tagSet = new Set<string>();
+
+  allPosts.forEach((post: CollectionEntry<"blog">) => {
+    post.data.tags.forEach((tag: string) => {
+      tagSet.add(tag);
+    });
+  });
+
+  return Array.from(tagSet).map((tag: string) => ({
+    params: { tag },
+  }));
+}
 ---
 
 <Layout title={`Posts tagged: ${tag}`}>
   <h1>#{tag}</h1>
   <ul>
-    {filteredPosts.map(post => (
+    {filteredPosts.map((post: CollectionEntry<"blog">) => (
       <li>
         <a href={`/blog/${post.slug}`}>{post.data.title}</a>
       </li>
