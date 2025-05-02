@@ -1,0 +1,18 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+// Get blog posts with proper type
+const posts = await getCollection("blog") as CollectionEntry<"blog">[];
+---
+
+<Layout title="Blog">
+  <h1>All Blog Posts</h1>
+  <ul>
+    {posts.map(post => (
+      <li>
+        <a href={`/blog/${post.slug}`}>{post.data.title}</a> – {new Date(post.data.pubDate).toLocaleDateString()}
+      </li>
+    ))}
+  </ul>
+</Layout>
